@@ -1,0 +1,25 @@
+import { Context, Schema } from "koishi";
+
+export const name = "ncm-saying";
+
+export interface Config {}
+
+export const Config: Schema<Config> = Schema.object({});
+
+export function apply(ctx: Context) {
+    ctx.command("ncm-saying", "网易云热评")
+        .alias("网抑云")
+        .alias("网易云热评")
+        .action(async ({ session }) => {
+            if (!session) {
+                return;
+            }
+            const response = await fetch("https://international.v1.hitokoto.cn/?c=j");
+            const data = await response.json();
+            if (response && !response.ok) {
+                return "获取网抑云失败咯，请稍后再试...";
+            }
+
+            return data.hitokoto + " ——《" + data.creator + "》";
+        });
+}
