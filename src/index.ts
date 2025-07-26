@@ -12,7 +12,7 @@ export function apply(ctx: Context) {
         .alias("网易云热评")
         .action(async ({ session }) => {
             if (!session) {
-                return;
+                throw new Error("无法获取会话信息");
             }
             const response = await fetch("https://international.v1.hitokoto.cn/?c=j");
             const data = await response.json();
