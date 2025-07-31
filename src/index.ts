@@ -14,12 +14,12 @@ export function apply(ctx: Context) {
             if (!session) {
                 throw new Error("无法获取会话信息");
             }
-            const response = await fetch("https://international.v1.hitokoto.cn/?c=j");
+            const response = await fetch("https://zj.v.api.aa1.cn/api/wenan-wy/?type=json");
             const data = await response.json();
             if (response && !response.ok) {
                 return "获取网抑云失败咯，请稍后再试...";
             }
 
-            return data.hitokoto + " ——《" + data.creator + "》";
+            return data.msg;
         });
 }
